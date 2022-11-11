@@ -1,0 +1,103 @@
+%%%%%%%%%%%%%%%%%%%%%
+%% Generell and Settings
+%%%%%%%%%%%%%%%%%%%%%
+
+%-- Input Configuration from config Folder
+\input{configuration/Configuration}
+\input{configuration/CustomProperties}
+
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+    pdftitle=\dokumententitel,
+    pdfauthor=\dokumentenautor
+}
+
+%%%%%%%%%%%%%%%%%%%%%
+%%
+%% DOKUMENT THESIS
+%%
+%%%%%%%%%%%%%%%%%%%%%
+
+%-- Document Begin
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Titelblatt/Verzeichnisse
+%%%%%%%%%%%%%%%%%%%%%
+
+%-- Römische Seitennummerierung für Verzeichnisse etc.
+\pagenumbering{Roman}
+
+%-- Input Titelblatt
+\input{kapitel/Titelseite}
+
+
+%-- TODO: Draft-Einstellungen - Für die finale Version auskommentieren!
+\fancyhead[L]{\color{red} Stand: \today~-~\currenttime}
+
+%-- Abstract/Executive Summary
+\include{kapitel/Abstract}\newpage
+
+%-- Inhaltsverzeichnis
+\tableofcontents\addcontentsline{toc}{section}{Inhaltsverzeichnis}\newpage
+
+%-- Abbildungsverzeichnis
+\listoffigures\newpage
+
+%-- Tabellenverzeichnis
+\listoftables\newpage
+
+%-- Abkürzungsverzeichnis
+\printglossary[type=\acronymtype, style=long, title=Abkürzungsverzeichnis, toctitle=Abkürzungsverzeichnis]\newpage
+
+\setcounter{table}{0} %printglossary erzeugt Tabelle, welche die Nummerierung durcheinanderbringen würde. Daher hier der reset
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Kapitel
+%%%%%%%%%%%%%%%%%%%%%
+
+%-- Setzen des richtigen Headers
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+
+%-- Arabische Seitennummerierung
+\pagenumbering{arabic}
+
+%-- Einleitung
+\include{kapitel/Einleitung}
+
+%-- Elementare Konzepte und Randbedingungen
+\include{kapitel/Hauptteil}
+
+%-- Fazit/Zusammenfassung/Schlussbetrachtung
+\include{kapitel/Zusammenfassung}
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Anhang, Erklärung, Glossar
+%%%%%%%%%%%%%%%%%%%%%
+
+\include{kapitel/Anhang}\newpage
+
+%Erneuter Input von Fancyheader da sonst Anhang kein Ende nimmt! bzw glossar falschen Header hat
+\fancyhead[L]{\leftmark}
+%-- Glossar
+\printglossary[style=long, title=Glossar, toctitle=Glossar]\newpage
+
+\include{kapitel/Quellenverzeichnis}
+
+%Erneuter Input von Fancyheader da sonst weiterhin "Quellenverzeichnis" as dem include gilt.
+\fancyhead[L]{Index}
+%-- Index
+\printindex\newpage
+
+\include{kapitel/Ehrenwoertliche_Erklaerung}
+    
+%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Ende der Thesis
+%%
+%%%%%%%%%%%%%%%%%%%%%
+
+%-- Document Ende
+\end{document}

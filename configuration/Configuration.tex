@@ -1,0 +1,201 @@
+%!TEX root = ../thesis.tex
+
+%%%%%%%%%%%%%%%%%%%%
+% Konfiguration in Anlehnung an https://github.com/FHDWPB/latex-thesis-template
+% bestehend aus: Mark Müller, Willi Nüßer, Waldemar Penner, Ulrich Reus Frank Plass, Oliver Tribeß, Daniel Hintze
+% 
+% Einige Settings wurden angepasst, sodass das Template den Anforderungen am Standort Bergisch Gladbach entspricht.
+%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Generelle Konfiguration
+%%%%%%%%%%%%%%%%%%%%
+
+% Setzen der Dokumentenclass
+\documentclass[%
+paper=A4,         % alle weiteren Papierformat einstellbar
+fontsize=12pt,    % Schriftgröße (12pt, 11pt (Standard))
+BCOR=12mm,         % Bindekorrektur, bspw. 1 cm
+DIV=14,            % breiter Satzspiegel
+parskip=half*,    % Absatzformatierung s. scrguide 3.1
+headsepline,      % Trennline zum Seitenkopf
+footsepline,     % Trennline zum Seitenfuß
+%normalheadings,  % Überschriften etwas kleiner (smallheadings)
+listof=totoc,     % Tabellen & Abbildungsverzeichnis ins Inhaltsverzeichnis
+%bibtotoc,        % Literaturverzeichnis im Inhalt
+%draft            % Überlangen Zeilen in Ausgabe gekennzeichnet
+footinclude=false,% Fußzeile in die Satzspiegelberechnung einbeziehen
+headinclude=true, % Kopfzeile in die Satzspiegelberechnung einbeziehen
+toc=sectionentrywithdots,
+final             % draft beschleunigt die Kompilierung
+]
+{scrartcl}
+
+% Setzen der Seitenränder
+\usepackage[left=40mm, right=20mm, top=25mm, bottom=25mm]{geometry}
+
+% Setzen der Ebenentiefe der Nummerierung
+\setcounter{secnumdepth}{3}
+
+% Setzen der Gliederungstiefe im Inhaltsverzeichnis
+\setcounter{tocdepth}{3}
+
+% Für die Definition eigener Kopf- und Fußzeilen
+\usepackage{fancyhdr}
+
+% Für die Verwendung von Grafiken
+\usepackage{graphicx}
+
+% Für Tikz Grafiken
+\usepackage{tikz}
+
+% Neue Deutsche Rechtschreibung und Deutsche Standardtexte
+\usepackage[ngerman]{babel}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Schriftart und Überschriften
+%%%%%%%%%%%%%%%%%%%%
+
+% Times New Roman as default Schriftart
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% Überschreiben der Sections von scrarticel, sodass auch die Überschriften Times new Roman sind!
+\newfontfamily\sectionfont{Times New Roman}
+\addtokomafont{section}{\sectionfont}
+\addtokomafont{subsection}{\sectionfont}
+\addtokomafont{subsubsection}{\sectionfont}
+% Change Schriftart im ToC (Inhaltsverzeichnis)
+\addtokomafont{sectionentry}{\sectionfont}
+
+% 1/2-zeiliger Zeilenabstand
+\usepackage[onehalfspacing]{setspace}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Utilities und Fixes
+%%%%%%%%%%%%%%%%%%%%
+
+% Erlaubt die Benutzung von Farben
+\usepackage{color}
+
+% Ausgabe der aktuellen Uhrzeit für die Draft-Versionen
+\usepackage{datetime}
+
+\usepackage{scrhack}
+
+%%%%%%%%%%%%%%%%%%%%
+% Kopf und Fußzeilen
+%%%%%%%%%%%%%%%%%%%%
+
+% Style für Kopf- und Fußzeilenfelder
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
+\fancypagestyle{plain}{}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Links
+%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{hyperref}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Abkürzungsverzeichnis
+%%%%%%%%%%%%%%%%%%%%
+
+% Abkürzungsverzeichnis
+\usepackage[acronym,         % create list of acronyms
+    nonumberlist,
+    toc,
+    section,
+    nopostdot,  % avoid dot after acronym
+    hyperfirst=false,% don't hyperlink first use
+%sanitize=none    % switch off sanitization as description % Deprecated
+]{glossaries}
+\newglossarystyle{mylist}{%
+    \setglossarystyle{long}% base this style on the list style
+    \renewcommand*{\glossaryentryfield}[5]{%
+        \glsentryitem{##1}\textbf{##2} & ##3 \\}%
+}
+% Import der Abkürzungen
+\input{configuration/Abbreviations}
+\makeglossaries\makeglossaries
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Literatur/Quellenverzeichnis
+%%%%%%%%%%%%%%%%%%%%
+
+%Literaturverzeichnis/Quellenverzeichnis
+\usepackage[
+    bibstyle=authoryear,
+    citestyle=authoryear-fhdw,
+    giveninits=true, %True = Vornamen werden abgekürzt
+    %natbib=true,
+    urldate=long,
+    maxcitenames=2,
+    maxbibnames=2,
+    backend=biber]{biblatex}
+\usepackage[german=quotes]{csquotes}
+\bibliography{Quellen}
+%Hiermit werden alle Quellen ins Verzeichnis aufgenommen auch ohne , dass sie Zitiert/genutzt werden.
+\nocite{*}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Indexverzeichnis
+% https://tug.org/tutorials/tugindia/chap16-scr.pdf Seite 9 ff.
+%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{imakeidx}
+\makeindex
+
+%%%%%%%%%%%%%%%%%%%%
+% Utilities und Fixes
+%%%%%%%%%%%%%%%%%%%%
+% Bessere URLs
+\usepackage{url}
+
+% Wilde Referenzieren auf Bilder, Tabellen, Seiten
+\usepackage[german,capitalise]{cleveref}
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Anhangsverzeichnis
+% Copyright 2022 Mark Müller, Willi Nüßer, Waldemar Penner, Ulrich Reus Frank Plass, Oliver Tribeß, Daniel Hintze
+% https://github.com/FHDWPB/latex-thesis-template
+%%%%%%%%%%%%%%%%%%%%
+% Anhangsverzeichnis: Credits: FHDWPB @Github https://raw.githubusercontent.com/FHDWPB/latex-thesis-template/master/config/Config.tex
+\usepackage[nohints]{minitoc}
+
+\makeatletter
+\newcounter{fktnr}\setcounter{fktnr}{0}
+\newcounter{subfktnr}[fktnr]\setcounter{subfktnr}{0}
+
+\renewcommand\thesubfktnr{\arabic{fktnr}.\arabic{subfktnr}} %\thesubfktnr wird zu "Große_Nummer.Kleine_Nummer"
+\newcounter{anhangcounter}
+\newcommand{\blatt}{\stepcounter{anhangcounter}}
+
+%Anhang Command
+\newcommand{\anhang}[1]{\setcounter{anhangcounter}{0}\refstepcounter{fktnr}
+\addcontentsline{fk}{subsection}{{\hspace*{0em}}Anhang~\thefktnr: #1}
+\subsection*{{Anhang~\thefktnr: #1 }}
+}
+%Subanhang Command
+\newcommand{\subanhang}[1]{\setcounter{anhangcounter}{0}\refstepcounter{subfktnr}
+\addcontentsline{fk}{subsubsection}{{\hspace*{0em}}Anhang~\thesubfktnr: #1}
+\subsubsection*{{Anhang~\thesubfktnr: #1 }}
+}
+%Anhangsverzeichnis Command
+\newcommand{\anhangsverzeichnis}{
+    \mtcaddsection{\subsection*{Anhangsverzeichnis \@mkboth{FKT}{FKT}}}
+    \@starttoc{fk}
+    \newpage
+}
